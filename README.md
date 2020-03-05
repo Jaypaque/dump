@@ -1,6 +1,5 @@
 # Obj2Ref
 ````
-var input = JSON.parse(`
 {
   "name": "John",
   "age": 30,
@@ -15,8 +14,10 @@ var input = JSON.parse(`
     }
     ]
   }
-}`)
-JSON.stringify(ref2Obj(input, ' / '))
+}
+````
+ref2Obj(..., ' / ') 
+````
 {
   "name": "John",
   "age": 30,
@@ -28,5 +29,23 @@ JSON.stringify(ref2Obj(input, ' / '))
   "cars / 1 / models / 0": "320",
   "cars / 1 / models / 1": "X3",
   "cars / 1 / models / 2": "X5"
+}
+````
+Obj2Ref(..., ' / ') 
+````
+{
+  "name": "John",
+  "age": 30,
+  "cars": [
+    {
+      "name": "Ford",
+      "models": ["Fiesta","Focus","Mustang"]
+    },
+    {
+      "name": "BMW",
+      "models": ["320","X3","X5"]
+    }
+    ]
+  }
 }
 ````
