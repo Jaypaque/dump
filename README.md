@@ -1,4 +1,5 @@
 # Obj2Ref
+````
 var input = JSON.parse(`
 {
   "name": "John",
@@ -15,7 +16,7 @@ var input = JSON.parse(`
     ]
   }
 }`)
-
+JSON.stringify(ref2Obj(input, ' / '))
 {
   "name": "John",
   "age": 30,
@@ -28,3 +29,4 @@ var input = JSON.parse(`
   "cars / 1 / models / 1": "X3",
   "cars / 1 / models / 2": "X5"
 }
+````
