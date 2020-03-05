@@ -1,4 +1,3 @@
-
 function obj2ref(arr, separator) {
   var out = {};
   separator = typeof separator == "string" ? separator : "/";
@@ -27,73 +26,26 @@ function ref2Obj(arr, separator) {
     });
     ref.push([...f, arr[keys[i]]]);
   }
-  print(ref);
+  var tempObj = isNaN(ref[0][0]) ? {} : [];
+  for (var j = 0; j < ref.length; j++) {
+    tempObj = Object.assign(tempObj, func(ref[j]));
+  }
   function func(refArray) {
-    print("func()", refArray);
-    var len = refArray.length;
-    var ni = isNaN(refArray[len - 2]) ? {} : [];
-    var type = ni;
-    ni[refArray[len - 2]] = refArray[len - 1];
-    if (len == 2) {
+    var ni = isNaN(refArray[refArray.length - 2]) ? {} : [];
+    ni[refArray[refArray.length - 2]] = refArray[refArray.length - 1];
+    if (refArray.length == 2) {
       return ni;
     }
     var oi = Object.assign({}, tempObj);
-    for (var i = 0; i < len - 2; i++) {
+    for (var i = 0; i < refArray.length - 2; i++) {
       if (oi) {
         oi = oi[refArray[i]];
       }
     }
-    oi
-      ? Array.isArray(oi)
-        ? (ni[oi.length - 1] = oi[oi.length - 1])
-        : (ni = Object.assign(oi, ni))
-      : null;
-    return func([...refArray.slice(0, len - 2), ni]);
-  }
-  var tempObj = {};
-  for (var j = 0; j < ref.length; j++) {
-    tempObj = Object.assign(tempObj, func(ref[j]));
+    if (oi) {
+      ni = Object.assign(oi, ni);
+    }
+    return func([...refArray.slice(0, refArray.length - 2), ni]);
   }
   return tempObj;
 }
-
-var data = JSON.parse(`
-{
-  "widget": {
-    "debug": "on",
-    "window": {
-      "title": "Sample Konfabulator Widget",
-      "name": "main_window",
-      "width": 500,
-      "height": 500
-    },
-    "image": {
-      "src": "Images/Sun.png",
-      "name": "sun1",
-      "hOffset": 250,
-      "vOffset": 250,
-      "alignment": "center"
-    },
-    "text": {
-      "data": "Click Here",
-      "size": 36,
-      "style": "bold",
-      "name": "text1",
-      "hOffset": 250,
-      "vOffset": 100,
-      "alignment": "center",
-      "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
-    }
-  }
-}
-`);
-var ref = obj2ref(data, " / ");
-var obj = ref2Obj(ref, " / ");
-
-console.log("Object", data);
-console.log("Object to references", ref);
-console.log("References to object", obj);
-console.log(
-  "Object === Object->reference->object",
-  JSON.stringify(data) === JSON.stringify(obj)
-);
