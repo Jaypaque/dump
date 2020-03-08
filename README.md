@@ -16,7 +16,7 @@
   }
 }
 ````
-ref2Obj(..., ' / ') 
+obj2ref(..., ' / ') 
 ````
 {
   "name": "John",
@@ -31,7 +31,7 @@ ref2Obj(..., ' / ')
   "cars / 1 / models / 2": "X5"
 }
 ````
-Obj2Ref(..., ' / ') 
+ref2obj(..., ' / ') 
 ````
 {
   "name": "John",
@@ -69,7 +69,7 @@ function obj2ref(arr, separator) {
   ref(arr);
   return out;
 }
-function ref2Obj(arr, separator) {
+function ref2obj(arr, separator) {
   separator = typeof separator == "string" ? separator : "/";
   var keys = Object.keys(arr);
   var ref = [];
