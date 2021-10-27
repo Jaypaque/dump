@@ -5,7 +5,7 @@ function obj2ref(arr, separator) {
     prefix = typeof prefix == "undefined" ? "" : prefix;
     var keys = Object.keys(d);
     for (var i = 0; i < keys.length; i++) {
-      if (typeof d[keys[i]] == "object") {
+      if (typeof d[keys[i]] == "object" && d[keys[i]] != null) {
         ref(d[keys[i]], prefix + keys[i] + separator);
       } else {
         out[prefix + keys[i]] = d[keys[i]];
